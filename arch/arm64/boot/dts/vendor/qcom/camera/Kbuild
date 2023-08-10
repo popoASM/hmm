@@ -1,7 +1,12 @@
-DTC_INCLUDE += $(srctree)/../sm8450-modules/qcom/opensource/camera-kernel
-KBUILD_DTC_INCLUDE += $(srctree)/../sm8450-modules/qcom/opensource/camera-kernel
+ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY), y)
+
+DTC_INCLUDE += $(srctree)/techpack/camera
 
 include $(srctree)/$(src)/config/waipio.mk
+
+else
+$(error CONFIG_BUILD_ARM64_DT_OVERLAY is: $(CONFIG_BUILD_ARM64_DT_OVERLAY))
+endif
 
 always-y	:= $(dtbo-y) $(dtb-y)
 subdir-y	:= $(dts-dirs)
